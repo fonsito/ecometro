@@ -14,8 +14,7 @@ define([
     },
 
     _setLayer: function(e) {
-      var element = $(e.currentTarget);
-      Backbone.Events.trigger('layer:' + element.data('layer'));
+      Backbone.Events.trigger('layer:' + $(e.currentTarget).data('layer'));
     },
 
     prevent: function(e) {

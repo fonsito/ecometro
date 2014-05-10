@@ -4,11 +4,31 @@ define([
   'backbone',
   'cartodb',
   'views/layer',
+
   'text!../../queries/transports/metro.pgsql',
   'text!../../queries/transports/buses.pgsql',
   'text!../../queries/transports/trains.pgsql',
-  'text!../../queries/transports/airports.pgsql'
-], function(Backbone, cartodbLib, LayerView, metroQuery, busesQuery, trainsQuery, airportsQuery) {
+  'text!../../queries/transports/airports.pgsql',
+
+  'text!../../queries/climatology/flood-zones.pgsql',
+  'text!../../queries/climatology/pluviometry.pgsql',
+
+  'text!../../queries/waste-management/green-points.pgsql',
+  'text!../../queries/waste-management/landfills.pgsql',
+  'text!../../queries/waste-management/sewage-plants.pgsql'
+], function(Backbone, cartodbLib, LayerView) {
+
+  var queries = {
+    metro: arguments[3],
+    buses: arguments[4],
+    trains: arguments[5],
+    airports: arguments[6],
+    floodZones: arguments[7],
+    pluviometry: arguments[8],
+    greenPoints: arguments[9],
+    landFills: arguments[10],
+    sewagePlants: arguments[11]
+  };
 
   var MapView = Backbone.View.extend({
 
@@ -26,7 +46,7 @@ define([
       this.createMap();
       this.setTiles();
 
-      this.metroLayer = new LayerView();
+      this.metroLayer = new LayerView({el: this.el});
       this.busesLayer = new LayerView();
       this.trainsLayer = new LayerView();
       this.airportsLayer = new LayerView();
@@ -35,7 +55,8 @@ define([
       this.landFillsLayer = new LayerView();
       this.sewagePlantsLayer = new LayerView();
 
-      this.nitrogenLayer = new LayerView();
+      this.floodZonesLayer = new LayerView();
+      this.pluviometryLayer = new LayerView();
 
       Backbone.Events.on('layer:metro', this.setMetroLayer, this);
       Backbone.Events.on('layer:buses', this.setBusesLayer, this);
@@ -43,19 +64,17 @@ define([
       Backbone.Events.on('layer:airports', this.setAirportsLayer, this);
 
       Backbone.Events.on('layer:greenpoints', this.setGreenPointsLayer, this);
-      Backbone.Events.on('layer:landfills', this.setLandfillsLayers, this);
-      Backbone.Events.on('layer:sewageplants', this.setSewagePlants, this);
+      Backbone.Events.on('layer:landfills', this.setLandfillsLayer, this);
+      Backbone.Events.on('layer:sewageplants', this.setSewagePlantsLayer, this);
 
-      Backbone.Events.on('layer:nitrogen', this.setNitrogenLayer, this);
+      Backbone.Events.on('layer:floodzones', this.setFloodZonesLayer, this);
+      Backbone.Events.on('layer:pluviometry', this.setPluviometryLayer, this);
 
-      this.map.on('click', function(e) {
-        self.onClick(e);
-      });
+      //Backbone.Events.on('location');
     },
 
     createMap: function() {
       this.map = L.map(this.el).setView(this.options.center, this.options.zoom);
-      window.map = this.map;
     },
 
     setTiles: function() {
@@ -67,8 +86,9 @@ define([
         this.metroLayer.removeLayer();
       } else {
         this.metroLayer.setLayer(this.map, {
-          sql: metroQuery,
-          cartocss: '#metro {marker-fill: #ff0000;}'
+          sql: queries.metro,
+          cartocss: '#metro {marker-fill: #ff0000;}',
+          interactivity: 'name'
         });
       }
     },
@@ -78,8 +98,9 @@ define([
         this.busesLayer.removeLayer();
       } else {
         this.busesLayer.setLayer(this.map, {
-          sql: busesQuery,
-          cartocss: '#autobuses_urbanos {marker-fill: #ffff00;}'
+          sql: queries.buses,
+          cartocss: '#autobuses_urbanos {marker-fill: #ffff00;}',
+          interactivity: 'name'
         });
       }
     },
@@ -89,8 +110,9 @@ define([
         this.trainsLayer.removeLayer();
       } else {
         this.trainsLayer.setLayer(this.map, {
-          sql: trainsQuery,
-          cartocss: '#tren_cercanias {marker-fill: #00ff00;}'
+          sql: queries.trains,
+          cartocss: '#tren_cercanias {marker-fill: #00ff00;}',
+          interactivity: 'name'
         });
       }
     },
@@ -100,8 +122,9 @@ define([
         this.airportsLayer.removeLayer();
       } else {
         this.airportsLayer.setLayer(this.map, {
-          sql: airportsQuery,
-          cartocss: '#airports {marker-fill: #0000ff;}'
+          sql: queries.airports,
+          cartocss: '#airports {marker-fill: #0000ff;}',
+          interactivity: 'name'
         });
       }
     },
@@ -111,47 +134,59 @@ define([
         this.greenPointsLayer.removeLayer();
       } else {
         this.greenPointsLayer.setLayer(this.map, {
-          sql: airportsQuery,
-          cartocss: '#green_points {marker-fill: #0000ff;}'
+          sql: queries.greenPoints,
+          cartocss: '#green_points {marker-fill: #00ff00;}',
+          interactivity: 'name'
         });
       }
     },
 
-    setLandfillsLayers: function() {
+    setLandfillsLayer: function() {
       if (this.landFillsLayer.layer) {
         this.landFillsLayer.removeLayer();
       } else {
         this.landFillsLayer.setLayer(this.map, {
-          sql: airportsQuery,
-          cartocss: '#landfills {marker-fill: #0000ff;}'
+          sql: queries.landFills,
+          cartocss: '#landfills {marker-fill: #0000ff;}',
+          interactivity: 'name'
         });
       }
     },
 
-    setSewagePlants: function() {
+    setSewagePlantsLayer: function() {
       if (this.sewagePlantsLayer.layer) {
         this.sewagePlantsLayer.removeLayer();
       } else {
         this.sewagePlantsLayer.setLayer(this.map, {
-          sql: airportsQuery,
-          cartocss: '#sewage_plants {marker-fill: #0000ff;}'
+          sql: queries.sewagePlants,
+          cartocss: '#sewage_plants {marker-fill: #0000ff;}',
+          interactivity: 'name'
         });
       }
     },
 
-    setFloodZones: function() {
+    setFloodZonesLayer: function() {
       if (this.floodZonesLayer.layer) {
         this.floodZonesLayer.removeLayer();
       } else {
         this.floodZonesLayer.setLayer(this.map, {
-          sql: airportsQuery,
-          cartocss: '#zonas_inundables {marker-fill: #0000ff;}'
+          sql: queries.floodZones,
+          cartocss: '#zonas_inundables {marker-fill: #0000ff;}',
+          interactivity: 'name'
         });
       }
     },
 
-    setNitrogenLayer: function() {
-
+    setPluviometryLayer: function() {
+      if (this.pluviometryLayer.layer) {
+        this.pluviometryLayer.removeLayer();
+      } else {
+        this.pluviometryLayer.setLayer(this.map, {
+          sql: queries.pluviometry,
+          cartocss: '#pluviometry {marker-fill: #3333cc;}',
+          interactivity: 'name'
+        });
+      }
     },
 
     onClick: function(e) {
@@ -160,8 +195,7 @@ define([
       }
       this.location = L.marker(e.latlng);
       this.location.addTo(this.map);
-
-      Backbone.Events.trigger('location', e.latlng);
+      this.map.setView(e.latlng, this.options.zoom);
     }
 
   });

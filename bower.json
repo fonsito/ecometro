@@ -21,7 +21,6 @@
     "handlebars": "~1.3.0",
     "requirejs-text": "~2.0.12",
     "cartodb": "https://github.com/CartoDB/cartodb.js.git#master",
-    "sprintf": "~1.0.0",
-    "spinjs": "~2.0.1"
+    "sprintf": "~1.0.0"
   }
 }

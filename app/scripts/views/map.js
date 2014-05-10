@@ -23,7 +23,7 @@ define([
 
       this.metroLayer = new LayerView();
 
-      this.setMetroLayer();
+      Backbone.Events.on('layer:metro', this.setMetroLayer, this);
     },
 
     createMap: function() {

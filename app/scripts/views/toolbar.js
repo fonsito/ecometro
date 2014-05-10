@@ -6,7 +6,16 @@ define([
 
   var ToolbarView = Backbone.View.extend({
 
-    el: '#toolbarView'
+    el: '#toolbarView',
+
+    events: {
+      'change .mod-category-child input': '_setLayer',
+    },
+
+    _setLayer: function(e) {
+      var element = $(e.currentTarget);
+      Backbone.Events.trigger('layer:metro', element.data('name'));
+    }
 
   });
 

@@ -1,14 +1,16 @@
 'use strict';
 
 define([
+  'underscore',
   'backbone',
   'backboneModal',
   'handlebars',
   'highcharts',
   'highchartsMore',
   'collections/projects',
-  'text!../../templates/about-us-modal.handlebars'
-], function(Backbone, backboneModal, Handlebars, Highcharts, highchartsMore, ProjectsCollection, aboutUsModalTpl) {
+  'text!../../templates/about-us-modal.handlebars',
+  'text!../../templates/project-details.handlebars'
+], function(_, Backbone, backboneModal, Handlebars, Highcharts, highchartsMore, ProjectsCollection, aboutModalTpl, detailsTpls) {
 
   var DashboardView = Backbone.View.extend({
 
@@ -24,7 +26,7 @@ define([
 
       // Modals
       this.AboutUsModal = Backbone.Modal.extend({
-        template: Handlebars.compile(aboutUsModalTpl),
+        template: Handlebars.compile(aboutModalTpl),
         cancelEl: '.bbm-button'
       });
 
@@ -36,7 +38,7 @@ define([
       this.projects.getData(function(error, results) {
         self._setProjectSelect();
         self._selectProject();
-      })
+      });
     },
 
     _onClickAboutUs: function(event) {
@@ -47,7 +49,7 @@ define([
     _setProjectSelect: function(argument) {
       var self = this;
       _.each(this.projects.toJSON(), function(project) {
-        $('<option></option>').attr('value', project.cartodb_id).text(project.name_project).appendTo(self.$selectProject)
+        $('<option></option>').attr('value', project.cartodb_id).text(project.name_project).appendTo(self.$selectProject);
       });
     },
 
@@ -56,17 +58,44 @@ define([
           project = this.projects.where({cartodb_id: Number(selectedId)})[0];
       
       Backbone.Events.trigger('location', project);
-      
-      //this._setHighchart(project);
-      //this._setDetails(project);
+
+      if (this.chart) {
+        this._redrawHighchart(project);
+      } else {
+        this._setHighchart(project);
+      }
+
+      this._setDetails(project);
     },
 
     _setHighchart: function(project) {
+      this.highcharts_opts.series = this._getHighchartSerie(project);
       this.chart = new Highcharts.Chart(this.highcharts_opts);
     },
 
+    _redrawHighchart: function(project) {
+      this.chart.series[0].setData(this._getHighchartSerie(project), false, true, false);
+    },
+
+    _getHighchartSerie: function(project) {
+      return [{
+        type: 'area',
+        name: project.get('name_project'),
+        data: [project.get('re'), project.get('bc'), project.get('ge'), project.get('ga'), project.get('bi')],
+        pointPlacement: 'on'
+      }];
+    },
+
     _setDetails: function(project) {
-      var container = this.$el.find('#projectDetails');
+      var template = Handlebars.compile(detailsTpls)({
+        name: project.get('name_project'),
+        address: project.get('address'),
+        area: project.get('area'),
+        typology: project.get('tipologia'),
+        category: project.get('categoria')
+      });
+
+      this.$el.find('#projectDetails').html(template);
     },
 
     highcharts_opts: {
@@ -121,13 +150,7 @@ define([
             }
           }
         }
-      },
-      series: [{
-        type: 'area',
-        name: 'Allocated Budget',
-        data: [43000, 19000, 60000, 35000, 17000],
-        pointPlacement: 'on'
-      }]
+      }
     }
   });
 

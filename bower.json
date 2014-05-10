@@ -1,10 +1,9 @@
 {
   "name": "ecometro",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "homepage": "",
   "authors": [
-    "David Inga <david.inga@simbiotica.es>",
-    "Adrián Pérez <adrian@simbiotica.es>"
+    "Ecohack"
   ],
   "description": "A visualization tool",
   "license": "MIT",

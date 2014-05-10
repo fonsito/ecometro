@@ -2,7 +2,7 @@
   "name": "ecometro",
   "description": "A visualization tool",
   "version": "1.0.0",
-  "author": "David Inga <david.inga@simbiotica.es>",
+  "author": "Ecohack",
   "repository": {
     "type": "git",
     "url": "git@github.com:fonsito/ecometro.git"

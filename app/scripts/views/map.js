@@ -23,10 +23,8 @@ define([
     buses: arguments[4],
     trains: arguments[5],
     airports: arguments[6],
-
     floodZones: arguments[7],
     pluviometry: arguments[8],
-
     greenPoints: arguments[9],
     landFills: arguments[10],
     sewagePlants: arguments[11]
@@ -48,7 +46,7 @@ define([
       this.createMap();
       this.setTiles();
 
-      this.metroLayer = new LayerView();
+      this.metroLayer = new LayerView({el: this.el});
       this.busesLayer = new LayerView();
       this.trainsLayer = new LayerView();
       this.airportsLayer = new LayerView();
@@ -68,18 +66,13 @@ define([
       Backbone.Events.on('layer:landfills', this.setLandfillsLayers, this);
       Backbone.Events.on('layer:sewageplants', this.setSewagePlants, this);
 
-      Backbone.Events.on('layer:floodzones', this.floodZonesLayer, this);
+      Backbone.Events.on('layer:floodzones', this.setFloodZones, this);
 
-      Backbone.Events.on('location');
-
-      this.map.on('click', function(e) {
-        self.onClick(e);
-      });
+      //Backbone.Events.on('location');
     },
 
     createMap: function() {
       this.map = L.map(this.el).setView(this.options.center, this.options.zoom);
-      window.map = this.map;
     },
 
     setTiles: function() {
@@ -104,7 +97,8 @@ define([
       } else {
         this.busesLayer.setLayer(this.map, {
           sql: queries.buses,
-          cartocss: '#autobuses_urbanos {marker-fill: #ffff00;}'
+          cartocss: '#autobuses_urbanos {marker-fill: #ffff00;}',
+          interactivity: 'name'
         });
       }
     },
@@ -115,7 +109,8 @@ define([
       } else {
         this.trainsLayer.setLayer(this.map, {
           sql: queries.trains,
-          cartocss: '#tren_cercanias {marker-fill: #00ff00;}'
+          cartocss: '#tren_cercanias {marker-fill: #00ff00;}',
+          interactivity: 'name'
         });
       }
     },
@@ -126,7 +121,8 @@ define([
       } else {
         this.airportsLayer.setLayer(this.map, {
           sql: queries.airports,
-          cartocss: '#airports {marker-fill: #0000ff;}'
+          cartocss: '#airports {marker-fill: #0000ff;}',
+          interactivity: 'name'
         });
       }
     },
@@ -137,7 +133,8 @@ define([
       } else {
         this.greenPointsLayer.setLayer(this.map, {
           sql: queries.greenPoints,
-          cartocss: '#green_points {marker-fill: #0000ff;}'
+          cartocss: '#green_points {marker-fill: #0000ff;}',
+          interactivity: 'name'
         });
       }
     },
@@ -148,7 +145,8 @@ define([
       } else {
         this.landFillsLayer.setLayer(this.map, {
           sql: queries.landFills,
-          cartocss: '#landfills {marker-fill: #0000ff;}'
+          cartocss: '#landfills {marker-fill: #0000ff;}',
+          interactivity: 'name'
         });
       }
     },
@@ -159,7 +157,8 @@ define([
       } else {
         this.sewagePlantsLayer.setLayer(this.map, {
           sql: queries.sewagePlants,
-          cartocss: '#sewage_plants {marker-fill: #0000ff;}'
+          cartocss: '#sewage_plants {marker-fill: #0000ff;}',
+          interactivity: 'name'
         });
       }
     },
@@ -170,7 +169,8 @@ define([
       } else {
         this.floodZonesLayer.setLayer(this.map, {
           sql: queries.floodZones,
-          cartocss: '#zonas_inundables {marker-fill: #0000ff;}'
+          cartocss: '#zonas_inundables {marker-fill: #0000ff;}',
+          interactivity: 'name'
         });
       }
     },

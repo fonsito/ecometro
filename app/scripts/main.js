@@ -39,12 +39,14 @@ require.config({
 });
 
 require([
-  'views/map'
-], function(MapView) {
+  'views/map',
+  'views/toolbar'
+], function(MapView, ToolbarView) {
 
   $('#header').addClass('transition-enter');
   $('#sidebar').addClass('transition-enter');
 
   new MapView();
+  new ToolbarView();
 
 });

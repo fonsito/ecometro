@@ -5,6 +5,11 @@ body, html {
   background: #ddd;
 }
 
+a {
+  color: $primary-color;
+  text-decoration: none;
+}
+
 .layout-header {
   height: 60px;
   background: #464646;
@@ -17,6 +22,7 @@ body, html {
 
   .layout-header-inner {
     padding: 0 6px;
+    height: 100%;
   }
 
   .mod-brand {
@@ -37,11 +43,100 @@ body, html {
     vertical-align: top;
     display: inline-block;
     margin-left: 20px;
-    padding-top: 20px;
-    li {
+    height: 100%;
+  }
+
+  .mod-categories > ul {
+    height: 100%;
+
+    > li {
       float:left;
+      margin-right: 25px;
+      position: relative;
+      height: 100%;
+
+      a {
+        color: white;
+        display: block;
+        text-transform: uppercase;
+        font-size: 13px;
+        font-weight: 700;
+        height: 100%;
+        padding-top: 20px;
+        @include box-sizing(border-box);
+      }
+    }
+
+    > li:hover {
+      .mod-category-child {
+        display: inline-block;
+      }
     }
   }
+
+  .mod-category-child {
+    width: 100%;
+    height: auto;
+    background: white;
+    position: absolute;
+    top: 50px;
+    display: none;
+    border-radius: 6px;
+    padding: 15px;
+    @include box-sizing(border-box);
+
+    >li {
+      display: block;
+      width: 100%;
+      font-size: 14px;
+      color: #666;
+      text-transform: uppercase;
+      font-weight: 500;
+  
+      label {
+        width: 100%;
+        cursor: pointer;
+        display: block;
+        padding: 8px 0;
+
+        &:hover {
+          background: #f2f2f2;
+        }
+      }
+
+      input {
+        margin-right: 10px;
+        height: 16px;
+        width: 16px;
+        vertical-align: bottom;
+      }
+    }
+  }
+
+  [class^="category-color"], [class*=" category-color"] {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  .category-color-climatology {
+    background: #1e7997;
+  }
+  
+  .category-color-transportation {
+    background: #ff9999;
+  }
+
+  .category-color-occupation {
+    background: #94b335;
+  }
+  
+  .category-color-supplier {
+    background: #c3c527;
+  }
+
 }
 
 .layout-sidebar {
@@ -93,6 +188,10 @@ body, html {
   list-style: none;
 }
 
-a {
-  text-decoration: none;
+.is-unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }

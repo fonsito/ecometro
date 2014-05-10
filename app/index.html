@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ecometro</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="apple-touch-icon" href="images/touch-icon.png">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,400italic' rel='stylesheet' type='text/css'>
+    <!-- build:css(.tmp) styles/main.css -->
+      <link rel="stylesheet" href="vendor/normalize-css/normalize.css">
+      <link rel="stylesheet" href="vendor/cartodb/themes/css/cartodb.css">
+      <link rel="stylesheet" href="vendor/Backbone.Modal/backbone.modal.css">
+      <link rel="stylesheet" href="../.tmp/styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body>
+
+    <header class="layout-header" role="banner" id="header">
+      <div class="layout-header-inner">
+        <div class="mod-brand">
+          <a href=""><img src="images/ecometro-logo.png" alt="Ecometro logo"></a>
+        </div>
+        <nav class="mod-categories is-unselectable" id="toolbarView">
+          <ul class="list-unstyled">
+            <li id="">
+              <a href="#climatology"><span class="category-color-climatology"></span>Climatology</a>
+              <ul class="mod-category-child list-unstyled">
+                <li>
+                  <label><input type="checkbox" data-layer="floodzones">Flood zones</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="pluviometry">Pluviometry</label>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#transportation"><span class="category-color-transportation"></span>Transports</a>
+              <ul class="mod-category-child list-unstyled">
+                <li>
+                  <label><input type="checkbox" data-layer="metro">Metro</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="buses">Buses</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="trains">Trains</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="airports">Airpots</label>
+                </li>
+              </ul>
+            </li>
+            <!-- <li>
+              <a href="#occupation"><span class="category-color-occupation"></span>Demographic</a>
+            </li> -->
+            <li>
+              <a href="#supplier"><span class="category-color-supplier"></span>Waste management</a>
+              <ul class="mod-category-child list-unstyled">
+                <li>
+                  <label><input type="checkbox" data-layer="greenpoints">Green points</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="landfills">Landfills</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="sewageplants">Sewage plants</label>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#contamination"><span class="category-color-supplier"></span>Contamination</a>
+              <ul class="mod-category-child list-unstyled">
+                <li>
+                  <label><input type="checkbox" data-layer="nitrogen">Nitrogen</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="phosphorus">Phosphorus</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="potasium">Potasium</label>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section class="layout-sidebar" id="dashboardView">
+      <div class="sidebar-inner">
+        <select id="selectProject"></select>
+        <div id="projectDetails"></div>
+        <div id="pentagon" class="mod-pentagon"></div>
+        <footer>
+          <button id="aboutUs" class="btn btn-primary">About the project</button>
+        </footer>
+      </div>
+    </section>
+
+    <div class="layout-map" id="mapView">
+    </div>
+
+    <div id="spinView" class="mod-spin"></div>
+
+    <script src="vendor/requirejs/require.js" data-main="scripts/main"></script>
+  </body>
+</html>

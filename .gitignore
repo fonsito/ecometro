@@ -1,0 +1,7 @@
+*.log
+.DS_Store
+.tmp
+.sass-cache
+dist
+node_modules
+app/vendor

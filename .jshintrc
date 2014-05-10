@@ -25,6 +25,7 @@
 
   "predef": [
     "define",
-    "L"
+    "L",
+    "cartodb"
   ]
 }

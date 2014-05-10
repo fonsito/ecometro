@@ -24,6 +24,7 @@
     "sprintf": "~1.0.0"
   },
   "devDependencies": {
-    "Backbone.Modal": "~1.0.0"
+    "Backbone.Modal": "~1.0.0",
+    "highcharts": "~3.0.7"
   }
 }

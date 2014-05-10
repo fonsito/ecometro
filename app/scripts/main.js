@@ -12,7 +12,9 @@ require.config({
     moment: '../vendor/momentjs/moment',
     spin: '../vendor/spinjs/spin',
     cartodb: '../vendor/cartodb/dist/cartodb.nojquery',
-    backboneModal: '../vendor/Backbone.Modal/backbone.modal'
+    backboneModal: '../vendor/Backbone.Modal/backbone.modal',
+    highcharts: '../vendor/highcharts/highcharts',
+    highchartsMore: '../vendor/highcharts/highcharts-more'
   },
 
   shim: {
@@ -37,6 +39,13 @@ require.config({
     },
     backboneModal: {
       deps: ['backbone']
+    },
+    highchartsMore: {
+      deps: ['highcharts']
+    },
+    highcharts: {
+      deps: ['jquery'],
+      exports: 'Highcharts'
     }
   }
 

@@ -20,9 +20,7 @@
     "normalize-css": "~3.0.1",
     "handlebars": "~1.3.0",
     "requirejs-text": "~2.0.12",
-    "cartodb": "https://github.com/CartoDB/cartodb.js.git#master"
-  },
-  "devDependencies": {
+    "cartodb": "https://github.com/CartoDB/cartodb.js.git#master",
     "Backbone.Modal": "~1.0.0",
     "highcharts": "~3.0.7"
   }

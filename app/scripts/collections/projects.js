@@ -8,6 +8,8 @@ define(['backbone'], function(Backbone) {
 
     getData: function(callback) {
 
+      console.log(callback)
+
       var options = {
 
         data: {

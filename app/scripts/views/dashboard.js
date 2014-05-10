@@ -6,8 +6,9 @@ define([
   'handlebars',
   'highcharts',
   'highchartsMore',
+  'collections/projects',
   'text!../../templates/about-us-modal.handlebars'
-], function(Backbone, backboneModal, Handlebars, Highcharts, highchartsMore, aboutUsModalTpl) {
+], function(Backbone, backboneModal, Handlebars, Highcharts, highchartsMore, ProjectsCollection, aboutUsModalTpl) {
 
   var DashboardView = Backbone.View.extend({
 
@@ -19,13 +20,19 @@ define([
     },
 
     initialize: function() {
+      var self = this;
+
       // Modals
       this.AboutUsModal = Backbone.Modal.extend({
         template: Handlebars.compile(aboutUsModalTpl),
         cancelEl: '.bbm-button'
       });
 
-      this._setHighchart();
+      this.projects = new ProjectsCollection();
+
+      this.projects.getData(function(error, results) {
+        self._selectProject();
+      })
     },
 
     _onClickAboutUs: function(event) {
@@ -36,16 +43,20 @@ define([
     _selectProject: function(event) {
       var selected = $('#selectProject option:selected').text().toLowerCase();
       Backbone.Events.trigger('location:' + selected);
+      
+      // get project
+      console.log(this.projects)
+
+      self._setHighchart(project);
+      this._setDetails(project);
     },
 
-    _setHighchart: function() {
+    _setHighchart: function(project) {
       this.chart = new Highcharts.Chart(this.highcharts_opts);
     },
 
     _setDetails: function(project) {
       var container = this.$el.find('#projectDetails');
-
-      this.project = new ProjectCollection();
     },
 
     highcharts_opts: {

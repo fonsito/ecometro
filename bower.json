@@ -1,12 +1,12 @@
 {
-  "name": "global-integrity",
+  "name": "ecometro",
   "version": "0.0.1",
-  "homepage": "https://bitbucket.org/simbiotica/global-integrity",
+  "homepage": "",
   "authors": [
     "David Inga <david.inga@simbiotica.es>",
     "Adrián Pérez <adrian@simbiotica.es>"
   ],
-  "description": "Innovations for Transparency and Accountability",
+  "description": "A visualization tool",
   "license": "MIT",
   "ignore": [
     "**/.*",

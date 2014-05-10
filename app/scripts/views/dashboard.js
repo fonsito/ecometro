@@ -28,9 +28,13 @@ define([
         cancelEl: '.bbm-button'
       });
 
+      // Cache
+      this.$selectProject = $('#selectProject');
+
       this.projects = new ProjectsCollection();
 
       this.projects.getData(function(error, results) {
+        self._setProjectSelect();
         self._selectProject();
       })
     },
@@ -40,15 +44,21 @@ define([
       $('body').append(this.aboutUsView.render().el);
     },
 
-    _selectProject: function(event) {
-      var selected = $('#selectProject option:selected').text().toLowerCase();
-      Backbone.Events.trigger('location:' + selected);
-      
-      // get project
-      console.log(this.projects)
+    _setProjectSelect: function(argument) {
+      var self = this;
+      _.each(this.projects.toJSON(), function(project) {
+        $('<option></option>').attr('value', project.cartodb_id).text(project.name_project).appendTo(self.$selectProject)
+      });
+    },
 
-      self._setHighchart(project);
-      this._setDetails(project);
+    _selectProject: function(event) {
+      var selectedId = this.$selectProject.val(),
+          project = this.projects.where({cartodb_id: Number(selectedId)})[0];
+      
+      Backbone.Events.trigger('location', project);
+      
+      //this._setHighchart(project);
+      //this._setDetails(project);
     },
 
     _setHighchart: function(project) {

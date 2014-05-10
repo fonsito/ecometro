@@ -56,6 +56,7 @@ define([
       this.sewagePlantsLayer = new LayerView();
 
       this.floodZonesLayer = new LayerView();
+      this.pluviometryLayer = new LayerView();
 
       Backbone.Events.on('layer:metro', this.setMetroLayer, this);
       Backbone.Events.on('layer:buses', this.setBusesLayer, this);
@@ -63,10 +64,11 @@ define([
       Backbone.Events.on('layer:airports', this.setAirportsLayer, this);
 
       Backbone.Events.on('layer:greenpoints', this.setGreenPointsLayer, this);
-      Backbone.Events.on('layer:landfills', this.setLandfillsLayers, this);
-      Backbone.Events.on('layer:sewageplants', this.setSewagePlants, this);
+      Backbone.Events.on('layer:landfills', this.setLandfillsLayer, this);
+      Backbone.Events.on('layer:sewageplants', this.setSewagePlantsLayer, this);
 
-      Backbone.Events.on('layer:floodzones', this.setFloodZones, this);
+      Backbone.Events.on('layer:floodzones', this.setFloodZonesLayer, this);
+      Backbone.Events.on('layer:pluviometry', this.setPluviometryLayer, this);
 
       //Backbone.Events.on('location');
     },
@@ -133,13 +135,13 @@ define([
       } else {
         this.greenPointsLayer.setLayer(this.map, {
           sql: queries.greenPoints,
-          cartocss: '#green_points {marker-fill: #0000ff;}',
+          cartocss: '#green_points {marker-fill: #00ff00;}',
           interactivity: 'name'
         });
       }
     },
 
-    setLandfillsLayers: function() {
+    setLandfillsLayer: function() {
       if (this.landFillsLayer.layer) {
         this.landFillsLayer.removeLayer();
       } else {
@@ -151,7 +153,7 @@ define([
       }
     },
 
-    setSewagePlants: function() {
+    setSewagePlantsLayer: function() {
       if (this.sewagePlantsLayer.layer) {
         this.sewagePlantsLayer.removeLayer();
       } else {
@@ -163,13 +165,25 @@ define([
       }
     },
 
-    setFloodZones: function() {
+    setFloodZonesLayer: function() {
       if (this.floodZonesLayer.layer) {
         this.floodZonesLayer.removeLayer();
       } else {
         this.floodZonesLayer.setLayer(this.map, {
           sql: queries.floodZones,
           cartocss: '#zonas_inundables {marker-fill: #0000ff;}',
+          interactivity: 'name'
+        });
+      }
+    },
+
+    setPluviometryLayer: function() {
+      if (this.pluviometryLayer.layer) {
+        this.pluviometryLayer.removeLayer();
+      } else {
+        this.pluviometryLayer.setLayer(this.map, {
+          sql: queries.pluviometry,
+          cartocss: '#pluviometry {marker-fill: #3333cc;}',
           interactivity: 'name'
         });
       }

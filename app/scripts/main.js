@@ -44,11 +44,12 @@ require.config({
 
 require([
   'underscore',
+  'handlebars',
   'cartodb',
   'views/map',
   'views/toolbar',
   'views/dashboard'
-], function(_, cartodbLib, MapView, ToolbarView, DashboardView) {
+], function(_, Handlebars, cartodbLib, MapView, ToolbarView, DashboardView) {
 
   // CARTODB Hack
   cdb.core.Template.compilers = _.extend(cdb.core.Template.compilers, {

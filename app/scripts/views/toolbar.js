@@ -9,7 +9,7 @@ define([
     el: '#toolbarView',
 
     events: {
-      'click .mod-category-child a': 'prevent',
+      'click a': 'prevent',
       'change .mod-category-child input': '_setLayer',
     },
 

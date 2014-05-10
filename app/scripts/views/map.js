@@ -21,6 +21,8 @@ define([
     },
 
     initialize: function() {
+      var self = this;
+
       this.createMap();
       this.setTiles();
 
@@ -33,6 +35,10 @@ define([
       Backbone.Events.on('layer:buses', this.setBusesLayer, this);
       Backbone.Events.on('layer:trains', this.setTrainsLayer, this);
       Backbone.Events.on('layer:airports', this.setAirportsLayer, this);
+
+      this.map.on('click', function(e) {
+        self.onClick(e);
+      });
     },
 
     createMap: function() {
@@ -85,6 +91,16 @@ define([
           cartocss: '#airports {marker-fill: #0000ff;}'
         });
       }
+    },
+
+    onClick: function(e) {
+      if (this.location) {
+        this.map.removeLayer(this.location);
+      }
+      this.location = L.marker(e.latlng);
+      this.location.addTo(this.map);
+
+      Backbone.Events.trigger('location', e.latlng);
     }
 
   });

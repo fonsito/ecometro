@@ -2,8 +2,8 @@
 
 define([
   'backbone',
-  'leaflet'
-], function(Backbone, L) {
+  'cartodb'
+], function(Backbone, cartodbLib) {
 
   var MapView = Backbone.View.extend({
 
@@ -21,7 +21,7 @@ define([
     },
 
     createMap: function() {
-      this.map = L.map('map').setView(this.options.center, this.options.zoom);
+      this.map = L.map(this.el).setView(this.options.center, this.options.zoom);
     },
 
     setTiles: function() {
@@ -29,5 +29,7 @@ define([
     }
 
   });
+
+  return MapView;
 
 });

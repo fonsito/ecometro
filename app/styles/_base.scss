@@ -2,36 +2,67 @@ body, html {
   height: 100%;
   width: 100%;
   font-family: 'Ubuntu', sans-serif;
-  background: #aaa;
+  background: #ddd;
 }
 
 .layout-header {
   height: 60px;
-  background: white;
+  background: #464646;
   width: 100%;
   position: absolute;
-  top: 0;
+  top: -60px;
   left: 0;
+  opacity: 0;
   z-index: 3;
 
   .layout-header-inner {
-    padding: 18px 20px;
+    padding: 0 6px;
   }
-} 
 
-.sidebar {
+  .mod-brand {
+    display: inline-block;
+
+    img {
+      padding-top: 2px;
+    }    
+  }
+
+  &.transition-enter {
+    top: 0;
+    left: 0;
+    opacity: 1;
+  }
+
+  .mod-categories {
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 20px;
+    padding-top: 20px;
+    li {
+      float:left;
+    }
+  }
+}
+
+.layout-sidebar {
   position: absolute;
   width: 20%;
-  height: 100%;
-  background: red;
-  top: 0;
-  right: 0; 
-  padding-top: 60px;
+  bottom: 0;
+  top: 60px;
+  right: -20%;
+  opacity: 0;
+  background: white;
   z-index: 2;
   @include box-sizing(border-box);
 
   .sidebar-inner {
     padding: 20px;
+  }
+
+  &.transition-enter {
+    top: 60px;
+    right: 0;
+    opacity: 1;
   }
 }
 
@@ -44,6 +75,24 @@ body, html {
   bottom: 0;
 }
 
+.layout-sidebar, .layout-header {
+  -webkit-transition: all .5s ease,z-index .5s linear;
+  -moz-transition: all .5s ease,z-index .5s linear;
+  -ms-transition: all .5s ease,z-index .5s linear;
+  -o-transition: all .5s ease,z-index .5s linear;
+  transition: all .5s ease,z-index .5s linear;
+}
+
 .is-hidden  {
   display: none;
+}
+
+.list-unstyled {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
 }

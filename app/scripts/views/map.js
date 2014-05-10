@@ -4,10 +4,10 @@ define([
   'backbone',
   'cartodb',
   'views/layer',
-  'text!../../queries/metro.pgsql',
-  'text!../../queries/buses.pgsql',
-  'text!../../queries/trains.pgsql',
-  'text!../../queries/airports.pgsql'
+  'text!../../queries/transports/metro.pgsql',
+  'text!../../queries/transports/buses.pgsql',
+  'text!../../queries/transports/trains.pgsql',
+  'text!../../queries/transports/airports.pgsql'
 ], function(Backbone, cartodbLib, LayerView, metroQuery, busesQuery, trainsQuery, airportsQuery) {
 
   var MapView = Backbone.View.extend({
@@ -25,6 +25,9 @@ define([
       this.setTiles();
 
       this.metroLayer = new LayerView();
+      this.busesLayer = new LayerView();
+      this.trainsLayer = new LayerView();
+      this.airportsLayer = new LayerView();
 
       Backbone.Events.on('layer:metro', this.setMetroLayer, this);
       Backbone.Events.on('layer:buses', this.setBusesLayer, this);
@@ -52,24 +55,36 @@ define([
     },
 
     setBusesLayer: function() {
-      this.busesLayer.setLayer(this.map, {
-        sql: busesQuery,
-        cartocss: '#autobuses_urbanos {marker-fill: #ffff00;}'
-      });
+      if (this.busesLayer.layer) {
+        this.busesLayer.removeLayer();
+      } else {
+        this.busesLayer.setLayer(this.map, {
+          sql: busesQuery,
+          cartocss: '#autobuses_urbanos {marker-fill: #ffff00;}'
+        });
+      }
     },
 
     setTrainsLayer: function() {
-      this.trainsLayer.setLayer(this.map, {
-        sql: trainsQuery,
-        cartocss: '#tren_cercanias {marker-fill: #00ff00;}'
-      });
+      if (this.trainsLayer.layer) {
+        this.trainsLayer.removeLayer();
+      } else {
+        this.trainsLayer.setLayer(this.map, {
+          sql: trainsQuery,
+          cartocss: '#tren_cercanias {marker-fill: #00ff00;}'
+        });
+      }
     },
 
     setAirportsLayer: function() {
-      this.airportsLayer.setLayer(this.map, {
-        sql: airportsQuery,
-        cartocss: '#airports {marker-fill: #00000ff;}'
-      });
+      if (this.airportsLayer.layer) {
+        this.airportsLayer.removeLayer();
+      } else {
+        this.airportsLayer.setLayer(this.map, {
+          sql: airportsQuery,
+          cartocss: '#airports {marker-fill: #0000ff;}'
+        });
+      }
     }
 
   });

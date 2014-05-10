@@ -41,7 +41,7 @@ define([
     options: {
       tiles: 'https://cartocdn_c.global.ssl.fastly.net/base-dark/{z}/{x}/{y}.png',
       center: [40.384212768155045, -3.6529541015625],
-      zoom: 10
+      zoom: 11
     },
 
     initialize: function() {
@@ -74,7 +74,7 @@ define([
       Backbone.Events.on('layer:floodzones', this.setFloodZonesLayer, this);
       Backbone.Events.on('layer:pluviometry', this.setPluviometryLayer, this);
 
-      //Backbone.Events.on('location');
+      Backbone.Events.on('location', this.setMarker, this);
     },
 
     createMap: function() {
@@ -229,13 +229,26 @@ define([
       }
     },
 
-    onClick: function(e) {
+    setMarker: function(project) {
+      var icon = L.icon({
+        iconUrl: 'images/marker.png',
+        iconSize: [40, 53]
+      });
+
+      var geolatlng = JSON.parse(project.get('latlng')).coordinates;
+
+      var latlng = [geolatlng[1], geolatlng[0]];
+
       if (this.location) {
         this.map.removeLayer(this.location);
       }
-      this.location = L.marker(e.latlng);
+
+      this.location = L.marker(latlng, {
+        icon: icon
+      });
+      this.location.bindPopup(project.get('name_project'));
       this.location.addTo(this.map);
-      this.map.setView(e.latlng, this.options.zoom);
+      this.map.setView(latlng, this.options.zoom);
     }
 
   });

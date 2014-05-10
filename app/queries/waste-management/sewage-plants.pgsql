@@ -1,1 +1,1 @@
-SELECT the_geom, deno as name, codm as code FROM sewage_plants WHERE ST_Intersects(the_geom,(SELECT the_geom FROM spain))
+SELECT the_geom, deno as name, codm as code, the_geom_webmercator FROM sewage_plants WHERE ST_Intersects(the_geom,(SELECT the_geom FROM spain))

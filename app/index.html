@@ -89,9 +89,15 @@
     </header>
 
     <section class="layout-sidebar" id="dashboardView">
-      <div class="sidebar-inner">
-        <select id="selectProject"></select>
-        <div id="projectDetails"></div>
+      <div class="select-project-container">
+        <div class="sidebar-wrapper">
+          <label>Select a project</label>
+          <select id="selectProject"></select>
+        </div>
+      </div>
+
+      <div class="sidebar-wrapper">
+        <div id="projectDetails" class="project-details"></div>
         <div id="pentagon" class="mod-pentagon"></div>
         <footer>
           <button id="aboutUs" class="btn btn-primary">About the project</button>

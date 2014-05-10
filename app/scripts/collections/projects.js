@@ -1,17 +1,20 @@
 'use strict';
 
-define(['backbone'], function(Backbone) {
+define([
+  'backbone',
+  'models/project'
+], function(Backbone, ProjectModel) {
 
   var ProjectsCollection = Backbone.Collection.extend({
 
     url: 'http://ecometro.cartodb.com/api/v2/sql',
+    model: ProjectModel,
 
     parse: function(data) {
       return data.rows;
     },
 
     getData: function(callback) {
-
       var options = {
 
         data: {

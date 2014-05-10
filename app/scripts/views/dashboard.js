@@ -6,8 +6,9 @@ define([
   'handlebars',
   'highcharts',
   'highchartsMore',
+  'collections/projects',
   'text!../../templates/about-us-modal.handlebars'
-], function(Backbone, backboneModal, Handlebars, Highcharts, highchartsMore, aboutUsModalTpl) {
+], function(Backbone, backboneModal, Handlebars, Highcharts, highchartsMore, ProjectsCollection, aboutUsModalTpl) {
 
   var DashboardView = Backbone.View.extend({
 
@@ -19,13 +20,23 @@ define([
     },
 
     initialize: function() {
+      var self = this;
+
       // Modals
       this.AboutUsModal = Backbone.Modal.extend({
         template: Handlebars.compile(aboutUsModalTpl),
         cancelEl: '.bbm-button'
       });
 
-      this._setHighchart();
+      // Cache
+      this.$selectProject = $('#selectProject');
+
+      this.projects = new ProjectsCollection();
+
+      this.projects.getData(function(error, results) {
+        self._setProjectSelect();
+        self._selectProject();
+      })
     },
 
     _onClickAboutUs: function(event) {
@@ -33,13 +44,29 @@ define([
       $('body').append(this.aboutUsView.render().el);
     },
 
-    _selectProject: function(event) {
-      var selected = $('#selectProject option:selected').text().toLowerCase();
-      Backbone.Events.trigger('location:' + selected);
+    _setProjectSelect: function(argument) {
+      var self = this;
+      _.each(this.projects.toJSON(), function(project) {
+        $('<option></option>').attr('value', project.cartodb_id).text(project.name_project).appendTo(self.$selectProject)
+      });
     },
 
-    _setHighchart: function() {
+    _selectProject: function(event) {
+      var selectedId = this.$selectProject.val(),
+          project = this.projects.where({cartodb_id: Number(selectedId)})[0];
+      
+      Backbone.Events.trigger('location', project);
+      
+      //this._setHighchart(project);
+      //this._setDetails(project);
+    },
+
+    _setHighchart: function(project) {
       this.chart = new Highcharts.Chart(this.highcharts_opts);
+    },
+
+    _setDetails: function(project) {
+      var container = this.$el.find('#projectDetails');
     },
 
     highcharts_opts: {

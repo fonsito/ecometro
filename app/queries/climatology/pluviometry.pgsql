@@ -1,0 +1,1 @@
+SELECT the_geom, nombre_del_pluvi__metro location_name, identificador_del_pluvi__metro as rain_amount  FROM  pluviometry WHERE ST_Intersects(the_geom,(SELECT the_geom FROM spain))

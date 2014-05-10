@@ -42,6 +42,9 @@ require([
   'views/map'
 ], function(MapView) {
 
+  $('#header').addClass('transition-enter');
+  $('#sidebar').addClass('transition-enter');
+
   new MapView();
 
 });

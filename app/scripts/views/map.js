@@ -16,8 +16,8 @@ define([
 
     options: {
       tiles: 'https://cartocdn_c.global.ssl.fastly.net/base-dark/{z}/{x}/{y}.png',
-      center: [40, -3],
-      zoom: 6
+      center: [40.384212768155045, -3.6529541015625],
+      zoom: 8
     },
 
     initialize: function() {
@@ -51,6 +51,7 @@ define([
 
     createMap: function() {
       this.map = L.map(this.el).setView(this.options.center, this.options.zoom);
+      window.map = this.map;
     },
 
     setTiles: function() {

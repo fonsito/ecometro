@@ -24,17 +24,6 @@
   "expr": true,
 
   "predef": [
-    "define",
-    "describe",
-    "it",
-    "L",
-    "App",
-    "app",
-    "Backbone",
-    "JST",
-    "_",
-    "TooltipView",
-    "Highcharts",
-    "moment"
+    "define"
   ]
 }

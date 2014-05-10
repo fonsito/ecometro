@@ -10,7 +10,6 @@ module.exports = function(grunt) {
     root: {
       app: 'app',
       tmp: '.tmp',
-      test: 'test',
       dist: 'dist'
     },
 
@@ -93,10 +92,6 @@ module.exports = function(grunt) {
         '<%= root.test %>/specs/{,*/}{,*/}*.js',
         '<%= root.test %>/runner.js'
       ]
-    },
-
-    mocha_phantomjs: {
-      all: ['<%= root.test %>/index.html']
     },
 
     requirejs: {
@@ -204,7 +199,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'jshint'
-    //'mocha_phantomjs'
   ]);
 
   grunt.registerTask('build', [

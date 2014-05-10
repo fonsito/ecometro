@@ -31,10 +31,18 @@ define([
       this.trainsLayer = new LayerView();
       this.airportsLayer = new LayerView();
 
+      this.greenPointsLayer = new LayerView();
+      this.landFillsLayer = new LayerView();
+      this.sewagePlantsLayer = new LayerView();
+
       Backbone.Events.on('layer:metro', this.setMetroLayer, this);
       Backbone.Events.on('layer:buses', this.setBusesLayer, this);
       Backbone.Events.on('layer:trains', this.setTrainsLayer, this);
       Backbone.Events.on('layer:airports', this.setAirportsLayer, this);
+
+      Backbone.Events.on('layer:greenpoints', this.setGreenPointsLayer, this);
+      Backbone.Events.on('layer:landfills', this.setLandfillsLayers, this);
+      Backbone.Events.on('layer:sewageplants', this.setSewagePlants, this);
 
       this.map.on('click', function(e) {
         self.onClick(e);
@@ -87,6 +95,39 @@ define([
         this.airportsLayer.removeLayer();
       } else {
         this.airportsLayer.setLayer(this.map, {
+          sql: airportsQuery,
+          cartocss: '#airports {marker-fill: #0000ff;}'
+        });
+      }
+    },
+
+    setGreenPointsLayer: function() {
+      if (this.greenPointsLayer.layer) {
+        this.greenPointsLayer.removeLayer();
+      } else {
+        this.greenPointsLayer.setLayer(this.map, {
+          sql: airportsQuery,
+          cartocss: '#airports {marker-fill: #0000ff;}'
+        });
+      }
+    },
+
+    setLandfillsLayers: function() {
+      if (this.landFillsLayer.layer) {
+        this.landFillsLayer.removeLayer();
+      } else {
+        this.landFillsLayer.setLayer(this.map, {
+          sql: airportsQuery,
+          cartocss: '#airports {marker-fill: #0000ff;}'
+        });
+      }
+    },
+
+    setSewagePlants: function() {
+      if (this.sewagePlantsLayer.layer) {
+        this.sewagePlantsLayer.removeLayer();
+      } else {
+        this.sewagePlantsLayer.setLayer(this.map, {
           sql: airportsQuery,
           cartocss: '#airports {marker-fill: #0000ff;}'
         });

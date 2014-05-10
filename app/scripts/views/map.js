@@ -41,9 +41,8 @@ define([
     },
 
     setMetroLayer: function() {
-      if (this.setMetroLayer) {
-        this.map.removeLayer(this.setMetroLayer);
-        this.setMetroLayer = null;
+      if (this.metroLayer.layer) {
+        this.metroLayer.removeLayer();
       } else {
         this.metroLayer.setLayer(this.map, {
           sql: metroQuery,

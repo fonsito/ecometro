@@ -2,8 +2,9 @@
 
 define([
   'backbone',
-  'cartodb'
-], function(Backbone, cartodbLib) {
+  'cartodb',
+  'views/layer'
+], function(Backbone, cartodbLib, LayerView) {
 
   var MapView = Backbone.View.extend({
 
@@ -18,6 +19,8 @@ define([
     initialize: function() {
       this.createMap();
       this.setTiles();
+
+      this.metroLayer = new LayerView();
     },
 
     createMap: function() {
@@ -26,6 +29,13 @@ define([
 
     setTiles: function() {
       this.tiles = L.tileLayer(this.options.tiles).addTo(this.map);
+    },
+
+    setMetroLayer: function() {
+      this.metroLayer.setLayer(this.map, {
+        sql: require(['text!../queries/metro.pgsql']),
+        cartocss: '#metroligero {marker-fill: #F0F0F0;}'
+      });
     }
 
   });

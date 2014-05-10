@@ -31,7 +31,7 @@ a {
 
     img {
       padding-top: 2px;
-    }    
+    }
   }
 
   &.transition-enter {
@@ -76,7 +76,7 @@ a {
   }
 
   .mod-category-child {
-    width: 100%;
+    width: 200px;
     height: auto;
     background: white;
     position: absolute;
@@ -93,7 +93,7 @@ a {
       color: #666;
       text-transform: uppercase;
       font-weight: 500;
-  
+
       label {
         width: 100%;
         cursor: pointer;
@@ -125,7 +125,7 @@ a {
   .category-color-climatology {
     background: #1e7997;
   }
-  
+
   .category-color-transportation {
     background: #ff9999;
   }
@@ -133,7 +133,7 @@ a {
   .category-color-occupation {
     background: #94b335;
   }
-  
+
   .category-color-supplier {
     background: #c3c527;
   }
@@ -192,7 +192,7 @@ a {
 .about-us-logos img {
   margin: 40px 40px 0 0;
   vertical-align: top;
-  
+
   &:last-child {
     margin-right: 0;
   }

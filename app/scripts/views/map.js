@@ -31,7 +31,10 @@ define([
     pluviometry: arguments[8],
     greenPoints: arguments[9],
     landFills: arguments[10],
-    sewagePlants: arguments[11]
+    sewagePlants: arguments[11],
+    nitrogen: arguments[12],
+    phosphorous: arguments[13],
+    potasium: arguments[14]
   };
 
   var MapView = Backbone.View.extend({
@@ -62,6 +65,10 @@ define([
       this.floodZonesLayer = new LayerView();
       this.pluviometryLayer = new LayerView();
 
+      this.nitrogenLayer = new LayerView();
+      this.phosphorousLayer = new LayerView();
+      this.potasiumLayer = new LayerView();
+
       Backbone.Events.on('layer:metro', this.setMetroLayer, this);
       Backbone.Events.on('layer:buses', this.setBusesLayer, this);
       Backbone.Events.on('layer:trains', this.setTrainsLayer, this);
@@ -73,6 +80,10 @@ define([
 
       Backbone.Events.on('layer:floodzones', this.setFloodZonesLayer, this);
       Backbone.Events.on('layer:pluviometry', this.setPluviometryLayer, this);
+
+      Backbone.Events.on('layer:nitrogen', this.setNitrogenLayer, this);
+      Backbone.Events.on('layer:phosphorous', this.setPhosphorousLayer, this);
+      Backbone.Events.on('layer:potasium', this.setPotasiumLayer, this);
 
       Backbone.Events.on('location', this.setMarker, this);
     },
@@ -91,7 +102,7 @@ define([
       } else {
         this.metroLayer.setLayer(this.map, {
           sql: queries.metro,
-          cartocss: '#metro {marker-fill: #ff0000;}',
+          cartocss: '#metro {marker-fill: #e54592;}',
           interactivity: 'name'
         });
       }
@@ -103,7 +114,7 @@ define([
       } else {
         this.busesLayer.setLayer(this.map, {
           sql: queries.buses,
-          cartocss: '#autobuses_urbanos {marker-fill: #ffff00;}',
+          cartocss: '#autobuses_urbanos {marker-fill: #e163f3;}',
           interactivity: 'name'
         });
       }
@@ -115,7 +126,7 @@ define([
       } else {
         this.trainsLayer.setLayer(this.map, {
           sql: queries.trains,
-          cartocss: '#tren_cercanias {marker-fill: #00ff00;}',
+          cartocss: '#tren_cercanias {marker-fill: #ff8fdf;}',
           interactivity: 'name'
         });
       }
@@ -127,7 +138,7 @@ define([
       } else {
         this.airportsLayer.setLayer(this.map, {
           sql: queries.airports,
-          cartocss: '#airports {marker-fill: #0000ff;}',
+          cartocss: '#airports {marker-fill: #ff00b0;}',
           interactivity: 'name'
         });
       }
@@ -139,7 +150,7 @@ define([
       } else {
         this.greenPointsLayer.setLayer(this.map, {
           sql: queries.greenPoints,
-          cartocss: '#green_points {marker-fill: #00ff00;}',
+          cartocss: '#green_points {marker-fill: #85e545;}',
           interactivity: 'name'
         });
       }
@@ -151,7 +162,7 @@ define([
       } else {
         this.landFillsLayer.setLayer(this.map, {
           sql: queries.landFills,
-          cartocss: '#landfills {marker-fill: #0000ff;}',
+          cartocss: '#landfills {marker-fill: #00aa04;}',
           interactivity: 'name'
         });
       }
@@ -163,7 +174,7 @@ define([
       } else {
         this.sewagePlantsLayer.setLayer(this.map, {
           sql: queries.sewagePlants,
-          cartocss: '#sewage_plants {marker-fill: #0000ff;}',
+          cartocss: '#sewage_plants {marker-fill: #b7ff8f;}',
           interactivity: 'name'
         });
       }
@@ -175,7 +186,7 @@ define([
       } else {
         this.floodZonesLayer.setLayer(this.map, {
           sql: queries.floodZones,
-          cartocss: '#zonas_inundables {marker-fill: #0000ff;}',
+          cartocss: '#zonas_inundables {marker-fill: #62e4ea;}',
           interactivity: 'name'
         });
       }
@@ -187,44 +198,44 @@ define([
       } else {
         this.pluviometryLayer.setLayer(this.map, {
           sql: queries.pluviometry,
-          cartocss: '#pluviometry {marker-fill: #3333cc;}',
+          cartocss: '#pluviometry {marker-fill: #41c743;}',
           interactivity: 'name'
         });
       }
     },
 
     setNitrogenLayer: function() {
-      if (this.pluviometryLayer.layer) {
-        this.pluviometryLayer.removeLayer();
+      if (this.nitrogenLayer.layer) {
+        this.nitrogenLayer.removeLayer();
       } else {
-        this.pluviometryLayer.setLayer(this.map, {
-          sql: queries.pluviometry,
-          cartocss: '#nitrogen_contamination {marker-fill: #3333cc; poligon-fill: #330000;}',
-          interactivity: 'name'
+        this.nitrogenLayer.setLayer(this.map, {
+          sql: queries.nitrogen,
+          cartocss: '#nitrogen_contamination {marker-fill: #3333cc; polygon-fill: #3333cc; polygon-opacity: 0.7; line-color: #fff; line-width: 1;}',
+          interactivity: 'name, value'
         });
       }
     },
 
     setPhosphorousLayer: function() {
-      if (this.pluviometryLayer.layer) {
-        this.pluviometryLayer.removeLayer();
+      if (this.phosphorousLayer.layer) {
+        this.phosphorousLayer.removeLayer();
       } else {
         this.pluviometryLayer.setLayer(this.map, {
           sql: queries.phosphorous,
-          cartocss: '#phosphorus_contamination {marker-fill: #3333cc;}',
-          interactivity: 'name'
+          cartocss: '#phosphorus_contamination {marker-fill: #feff2a; polygon-fill: #feff2a;}',
+          interactivity: 'name, value'
         });
       }
     },
 
     setPotasiumLayer: function() {
-      if (this.pluviometryLayer.layer) {
-        this.pluviometryLayer.removeLayer();
+      if (this.potasiumLayer.layer) {
+        this.potasiumLayer.removeLayer();
       } else {
-        this.pluviometryLayer.setLayer(this.map, {
+        this.potasiumLayer.setLayer(this.map, {
           sql: queries.potasium,
-          cartocss: '#potasium_contamination {marker-fill: #3333cc;}',
-          interactivity: 'name'
+          cartocss: '#potasium_contamination {marker-fill: #fffa72; polygon-fill: #fffa72;}',
+          interactivity: 'name, value'
         });
       }
     },

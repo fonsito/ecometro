@@ -56,9 +56,9 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          httpImagesPath: '../images',
-          httpGeneratedImagesPath: '../images/sprite',
-          httpFontsPath: '../fonts'
+          httpImagesPath: '/ecometro/images',
+          httpGeneratedImagesPath: '/ecometro/images/sprite',
+          httpFontsPath: '/ecometro/fonts'
         }
       },
       app: {

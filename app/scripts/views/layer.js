@@ -13,15 +13,21 @@ define([
     },
 
     setLayer: function(map, sublayerOptions) {
+      var self = this;
       var options = _.extend(this.options, {
         sublayers: [sublayerOptions]
       });
 
       this.map = map;
 
-      this.layer = cartodb.createLayer(map, options);
+      cartodb.createLayer(map, options).on('done', function(layer) {
+        self.layer = layer;
+      }).addTo(map);
+    },
 
-      this.layer.addTo(map);
+    removeLayer: function() {
+      this.map.removeLayer(this.layer);
+      this.layer = null;
     }
 
   });

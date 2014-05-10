@@ -15,7 +15,11 @@ define([
 
   'text!../../queries/waste-management/green-points.pgsql',
   'text!../../queries/waste-management/landfills.pgsql',
-  'text!../../queries/waste-management/sewage-plants.pgsql'
+  'text!../../queries/waste-management/sewage-plants.pgsql',
+
+  'text!../../queries/contamination/nitrogen.pgsql',
+  'text!../../queries/contamination/phosphorous.pgsql',
+  'text!../../queries/contamination/potasium.pgsql'
 ], function(Backbone, cartodbLib, LayerView) {
 
   var queries = {
@@ -178,6 +182,42 @@ define([
     },
 
     setPluviometryLayer: function() {
+      if (this.pluviometryLayer.layer) {
+        this.pluviometryLayer.removeLayer();
+      } else {
+        this.pluviometryLayer.setLayer(this.map, {
+          sql: queries.pluviometry,
+          cartocss: '#pluviometry {marker-fill: #3333cc;}',
+          interactivity: 'name'
+        });
+      }
+    },
+
+    setNitrogenLayer: function() {
+      if (this.pluviometryLayer.layer) {
+        this.pluviometryLayer.removeLayer();
+      } else {
+        this.pluviometryLayer.setLayer(this.map, {
+          sql: queries.pluviometry,
+          cartocss: '#pluviometry {marker-fill: #3333cc;}',
+          interactivity: 'name'
+        });
+      }
+    },
+
+    setPhosphorousLayer: function() {
+      if (this.pluviometryLayer.layer) {
+        this.pluviometryLayer.removeLayer();
+      } else {
+        this.pluviometryLayer.setLayer(this.map, {
+          sql: queries.pluviometry,
+          cartocss: '#pluviometry {marker-fill: #3333cc;}',
+          interactivity: 'name'
+        });
+      }
+    },
+
+    setPotasiumLayer: function() {
       if (this.pluviometryLayer.layer) {
         this.pluviometryLayer.removeLayer();
       } else {

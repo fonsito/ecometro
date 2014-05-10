@@ -42,6 +42,12 @@ define([
       this.chart = new Highcharts.Chart(this.highcharts_opts);
     },
 
+    _setDetails: function(project) {
+      var container = this.$el.find('#projectDetails');
+
+      this.project = new ProjectCollection();
+    },
+
     highcharts_opts: {
       chart: {
         renderTo:'pentagon',

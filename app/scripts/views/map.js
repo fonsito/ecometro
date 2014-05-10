@@ -4,11 +4,35 @@ define([
   'backbone',
   'cartodb',
   'views/layer',
+
   'text!../../queries/transports/metro.pgsql',
   'text!../../queries/transports/buses.pgsql',
   'text!../../queries/transports/trains.pgsql',
-  'text!../../queries/transports/airports.pgsql'
-], function(Backbone, cartodbLib, LayerView, metroQuery, busesQuery, trainsQuery, airportsQuery) {
+  'text!../../queries/transports/airports.pgsql',
+
+  'text!../../queries/climatology/flood-zones.pgsql',
+  'text!../../queries/climatology/pluviometry.pgsql',
+
+  'text!../../queries/waste-management/green-points.pgsql',
+  'text!../../queries/waste-management/landfills.pgsql',
+  'text!../../queries/waste-management/sewage-plants.pgsql'
+], function(Backbone, cartodbLib, LayerView) {
+
+  console.log(arguments);
+
+  var queries = {
+    metroQuery: arguments[3],
+    busesQuery: arguments[4],
+    trainsQuery: arguments[5],
+    airportsQuery: arguments[6],
+
+    floodZonesQuery: arguments[7],
+    pluviometryQuery: arguments[9],
+
+    greenPointsQuery: arguments[10],
+    landFillsQuery: arguments[11],
+    sewagePlantsQuery: arguments[12]
+  };
 
   var MapView = Backbone.View.extend({
 
@@ -47,6 +71,8 @@ define([
       Backbone.Events.on('layer:sewageplants', this.setSewagePlants, this);
 
       Backbone.Events.on('layer:nitrogen', this.setNitrogenLayer, this);
+
+      Backbone.Events.on('location');
 
       this.map.on('click', function(e) {
         self.onClick(e);
@@ -160,8 +186,7 @@ define([
       }
       this.location = L.marker(e.latlng);
       this.location.addTo(this.map);
-
-      Backbone.Events.trigger('location', e.latlng);
+      this.map.setView(e.latlng, this.options.zoom);
     }
 
   });

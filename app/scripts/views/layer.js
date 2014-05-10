@@ -9,13 +9,12 @@ define([
 
     options: {
       user_name: 'ecometro',
-      type: 'cartodb',
-      sublayers: []
+      type: 'cartodb'
     },
 
     setLayer: function(map, sublayerOptions) {
       var options = _.extend(this.options, {
-        sublayers: sublayerOptions
+        sublayers: [sublayerOptions]
       });
 
       this.map = map;

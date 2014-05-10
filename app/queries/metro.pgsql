@@ -1,1 +1,1 @@
-select the_geom, name from metroligero
+SELECT * FROM metro

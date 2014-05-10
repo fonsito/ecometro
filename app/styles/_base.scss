@@ -12,7 +12,7 @@ body, html {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 3;
 
   .layout-header-inner {
     padding: 18px 20px;
@@ -21,17 +21,27 @@ body, html {
 
 .sidebar {
   position: absolute;
-  width: 300px;
+  width: 20%;
   height: 100%;
   background: red;
   top: 0;
   right: 0; 
   padding-top: 60px;
+  z-index: 2;
   @include box-sizing(border-box);
 
   .sidebar-inner {
     padding: 20px;
   }
+}
+
+.layout-map {
+  position: absolute;
+  z-index: 1;
+  width: 80%;
+  left: 0;
+  top: 60px;
+  bottom: 0;
 }
 
 .is-hidden  {

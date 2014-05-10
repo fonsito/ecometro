@@ -18,7 +18,7 @@ define([
       var options = {
 
         data: {
-          q: 'SELECT * FROM tabla_de_proyectos',
+          q: 'SELECT *, ST_AsGeoJSON(the_geom) AS latlng FROM tabla_de_proyectos',
           format: 'json'
         },
 

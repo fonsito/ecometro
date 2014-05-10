@@ -199,7 +199,7 @@ define([
       } else {
         this.pluviometryLayer.setLayer(this.map, {
           sql: queries.pluviometry,
-          cartocss: '#pluviometry {marker-fill: #3333cc;}',
+          cartocss: '#pluviometry {marker-fill: #3333cc; poligon-fill: #330000;}',
           interactivity: 'name'
         });
       }

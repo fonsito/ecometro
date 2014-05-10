@@ -210,7 +210,7 @@ define([
       } else {
         this.nitrogenLayer.setLayer(this.map, {
           sql: queries.nitrogen,
-          cartocss: '#nitrogen_contamination {marker-fill: #3333cc; polygon-fill: #3333cc; polygon-opacity: 0.7; line-color: #fff; line-width: 1;}',
+          cartocss: '#metro {polygon-opacity: 0.7;line-color: #FFF;line-width: 1;line-opacity: 1;}#metro{polygon-fill: #A6CEE3;}#metro[value="81900"] {polygon-fill: #1F78B4;}#metro[value="28300"] {polygon-fill: #B2DF8A;}#metro[value="400"] {polygon-fill: #33A02C;}#metro[value="70500"] {polygon-fill: #FB9A99;}#metro[value="6100"] {polygon-fill: #E31A1C;}#metro[value="3600"] {polygon-fill: #FDBF6F;}#metro[value="2800"] {polygon-fill: #FF7F00;}#metro[value="23000"] {polygon-fill: #CAB2D6;}#metro[value="4700"] {polygon-fill: #6A3D9A;}#metro {polygon-fill: #DDDDDD;}',
           interactivity: 'name, value'
         });
       }

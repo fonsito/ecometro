@@ -6,6 +6,10 @@ define(['backbone'], function(Backbone) {
 
     url: 'http://ecometro.cartodb.com/api/v2/sql',
 
+    parse: function(data) {
+      return data.rows;
+    },
+
     getData: function(callback) {
 
       console.log(callback)

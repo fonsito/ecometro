@@ -14,7 +14,7 @@ define([
 
     _setLayer: function(e) {
       var element = $(e.currentTarget);
-      Backbone.Events.trigger('layer:metro', element.data('name'));
+      Backbone.Events.trigger('layer:' + element.data('layer'));
     }
 
   });

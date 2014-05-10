@@ -15,7 +15,7 @@ define([
     el: '#mapView',
 
     options: {
-      tiles: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+      tiles: 'https://cartocdn_c.global.ssl.fastly.net/base-dark/{z}/{x}/{y}.png',
       center: [40, -3],
       zoom: 6
     },
@@ -41,10 +41,15 @@ define([
     },
 
     setMetroLayer: function() {
-      this.metroLayer.setLayer(this.map, {
-        sql: metroQuery,
-        cartocss: '#metro {marker-fill: #ff0000;}'
-      });
+      if (this.setMetroLayer) {
+        this.map.removeLayer(this.setMetroLayer);
+        this.setMetroLayer = null;
+      } else {
+        this.metroLayer.setLayer(this.map, {
+          sql: metroQuery,
+          cartocss: '#metro {marker-fill: #ff0000;}'
+        });
+      }
     },
 
     setBusesLayer: function() {

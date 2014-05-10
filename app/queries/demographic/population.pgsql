@@ -1,1 +1,0 @@
-select the_geom, the_geom_webmercator, cartodb_id, poblaci__n_de_hecho as value, nombre_del_municipio as name  from aglomeraciones_urbanas

@@ -199,7 +199,7 @@ define([
       } else {
         this.pluviometryLayer.setLayer(this.map, {
           sql: queries.pluviometry,
-          cartocss: '#pluviometry {marker-fill: #3333cc; poligon-fill: #330000;}',
+          cartocss: '#nitrogen_contamination {marker-fill: #3333cc; poligon-fill: #330000;}',
           interactivity: 'name'
         });
       }
@@ -210,8 +210,8 @@ define([
         this.pluviometryLayer.removeLayer();
       } else {
         this.pluviometryLayer.setLayer(this.map, {
-          sql: queries.pluviometry,
-          cartocss: '#pluviometry {marker-fill: #3333cc;}',
+          sql: queries.phosphorous,
+          cartocss: '#phosphorus_contamination {marker-fill: #3333cc;}',
           interactivity: 'name'
         });
       }
@@ -222,8 +222,8 @@ define([
         this.pluviometryLayer.removeLayer();
       } else {
         this.pluviometryLayer.setLayer(this.map, {
-          sql: queries.pluviometry,
-          cartocss: '#pluviometry {marker-fill: #3333cc;}',
+          sql: queries.potasium,
+          cartocss: '#potasium_contamination {marker-fill: #3333cc;}',
           interactivity: 'name'
         });
       }

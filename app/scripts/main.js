@@ -11,7 +11,8 @@ require.config({
     sprintf: '../vendor/sprintf/src/sprintf',
     moment: '../vendor/momentjs/moment',
     spin: '../vendor/spinjs/spin',
-    cartodb: '../vendor/cartodb/dist/cartodb.nojquery'
+    cartodb: '../vendor/cartodb/dist/cartodb.nojquery',
+    backboneModal: '../vendor/Backbone.Modal/backbone.modal'
   },
 
   shim: {
@@ -33,6 +34,9 @@ require.config({
     },
     cartodb: {
       deps: ['jquery']
+    },
+    backboneModal: {
+      deps: ['backbone']
     }
   }
 
@@ -40,13 +44,15 @@ require.config({
 
 require([
   'views/map',
-  'views/toolbar'
-], function(MapView, ToolbarView) {
+  'views/toolbar',
+  'views/dashboard'
+], function(MapView, ToolbarView, DashboardView) {
 
   $('#header').addClass('transition-enter');
-  $('#sidebar').addClass('transition-enter');
+  $('#dashboardView').addClass('transition-enter');
 
   new MapView();
   new ToolbarView();
+  new DashboardView();
 
 });

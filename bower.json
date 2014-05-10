@@ -22,5 +22,8 @@
     "requirejs-text": "~2.0.12",
     "cartodb": "https://github.com/CartoDB/cartodb.js.git#master",
     "sprintf": "~1.0.0"
+  },
+  "devDependencies": {
+    "Backbone.Modal": "~1.0.0"
   }
 }

@@ -3,6 +3,7 @@ body, html {
   width: 100%;
   font-family: 'Ubuntu', sans-serif;
   background: #ddd;
+  overflow: hidden;
 }
 
 a {
@@ -159,6 +160,16 @@ a {
     right: 0;
     opacity: 1;
   }
+
+  footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 10px;
+    width: 90%;
+    background: #f2f2f2;
+  }
 }
 
 .layout-map {
@@ -194,4 +205,22 @@ a {
    -webkit-user-select: none;
    -ms-user-select: none;
    user-select: none;
+}
+
+.btn {
+  padding: 10px 20px;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  border: none;
+  border-radius: 3px;
+}
+
+.btn-primary {
+  background: $primary-color;
+  color: white;
+
+  &:hover {
+    background: lighten($primary-color, 4);
+  }
 }

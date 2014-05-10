@@ -17,7 +17,7 @@ define([
     options: {
       tiles: 'https://cartocdn_c.global.ssl.fastly.net/base-dark/{z}/{x}/{y}.png',
       center: [40.384212768155045, -3.6529541015625],
-      zoom: 8
+      zoom: 10
     },
 
     initialize: function() {
@@ -35,6 +35,8 @@ define([
       this.landFillsLayer = new LayerView();
       this.sewagePlantsLayer = new LayerView();
 
+      this.nitrogenLayer = new LayerView();
+
       Backbone.Events.on('layer:metro', this.setMetroLayer, this);
       Backbone.Events.on('layer:buses', this.setBusesLayer, this);
       Backbone.Events.on('layer:trains', this.setTrainsLayer, this);
@@ -43,6 +45,8 @@ define([
       Backbone.Events.on('layer:greenpoints', this.setGreenPointsLayer, this);
       Backbone.Events.on('layer:landfills', this.setLandfillsLayers, this);
       Backbone.Events.on('layer:sewageplants', this.setSewagePlants, this);
+
+      Backbone.Events.on('layer:nitrogen', this.setNitrogenLayer, this);
 
       this.map.on('click', function(e) {
         self.onClick(e);
@@ -108,7 +112,7 @@ define([
       } else {
         this.greenPointsLayer.setLayer(this.map, {
           sql: airportsQuery,
-          cartocss: '#airports {marker-fill: #0000ff;}'
+          cartocss: '#green_points {marker-fill: #0000ff;}'
         });
       }
     },
@@ -119,7 +123,7 @@ define([
       } else {
         this.landFillsLayer.setLayer(this.map, {
           sql: airportsQuery,
-          cartocss: '#airports {marker-fill: #0000ff;}'
+          cartocss: '#landfills {marker-fill: #0000ff;}'
         });
       }
     },
@@ -130,9 +134,24 @@ define([
       } else {
         this.sewagePlantsLayer.setLayer(this.map, {
           sql: airportsQuery,
-          cartocss: '#airports {marker-fill: #0000ff;}'
+          cartocss: '#sewage_plants {marker-fill: #0000ff;}'
         });
       }
+    },
+
+    setFloodZones: function() {
+      if (this.floodZonesLayer.layer) {
+        this.floodZonesLayer.removeLayer();
+      } else {
+        this.floodZonesLayer.setLayer(this.map, {
+          sql: airportsQuery,
+          cartocss: '#zonas_inundables {marker-fill: #0000ff;}'
+        });
+      }
+    },
+
+    setNitrogenLayer: function() {
+
     },
 
     onClick: function(e) {

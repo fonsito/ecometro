@@ -60,7 +60,7 @@ define([
       Backbone.Events.trigger('location', project);
 
       if (this.chart) {
-        this._redrawHighchart(project);
+        this._setHighchart(project);
       } else {
         this._setHighchart(project);
       }
@@ -73,15 +73,16 @@ define([
       this.chart = new Highcharts.Chart(this.highcharts_opts);
     },
 
-    _redrawHighchart: function(project) {
+/*    _redrawHighchart: function(project) {
       this.chart.series[0].setData(this._getHighchartSerie(project), false, true, false);
-    },
+      this.chart.redraw();
+    },*/
 
     _getHighchartSerie: function(project) {
       return [{
         type: 'area',
         name: project.get('name_project'),
-        data: [project.get('re'), project.get('bc'), project.get('ge'), project.get('ga'), project.get('bi')],
+        data: [Number(project.get('re')), Number(project.get('bc')), Number(project.get('ge')), Number(project.get('ga')), Number(project.get('bi'))],
         pointPlacement: 'on'
       }];
     },

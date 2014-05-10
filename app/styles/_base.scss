@@ -1,4 +1,4 @@
-body, html {
+  body, html {
   height: 100%;
   width: 100%;
   font-family: 'Ubuntu', sans-serif;
@@ -300,7 +300,6 @@ a {
     background: lighten($primary-color, 4);
   }
 }
-<<<<<<< HEAD
 
 select  {
   display: block;
@@ -319,5 +318,3 @@ select  {
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   @include box-sizing(border-box);
 }
-=======
->>>>>>> 6ec544ec609778487ebdd4a089234ba43bcb5bf2

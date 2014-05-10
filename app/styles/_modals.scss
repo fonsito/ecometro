@@ -4,9 +4,10 @@
 }
 
 .bbm-modal {
-  background: #333;
+  background: #404040;
   color: white;
   box-shadow: 0 0px 6px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.9);
+  max-width: 900px;
 }
 
 /* BLOCKS */
@@ -55,14 +56,14 @@
   margin-top: 0px;
   font-size: 16px;
   line-height: 26px;
-  color: #999;
+  color: #aaa;
   text-align: center; 
 }
 
 .bbm-modal__section p {
   font-size: 16px;
   line-height: 26px;
-  color: #575656;
+  color: #aaa;
 }
 
 .bbm-modal__section p:last-child {

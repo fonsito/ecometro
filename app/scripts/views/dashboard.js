@@ -12,7 +12,8 @@ define([
     el: '#dashboardView',
 
     events: {
-      'click #aboutUs': '_onClickAboutUs'
+      'click #aboutUs': '_onClickAboutUs',
+      'change #selectProject': '_selectProject'
     },
 
     initialize: function() {
@@ -23,10 +24,14 @@ define([
       });
     },
 
-    _onClickAboutUs: function() {
+    _onClickAboutUs: function(event) {
       this.aboutUsView = new this.AboutUsModal();
-      console.log(this.aboutUsView.render().el)
       $('body').append(this.aboutUsView.render().el);
+    },
+
+    _selectProject: function(event) {
+      var selected = $('#selectProject option:selected').text().toLowerCase();
+      Backbone.Events.trigger('location:' + selected);
     }
 
   });

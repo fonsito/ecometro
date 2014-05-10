@@ -189,6 +189,15 @@ a {
   transition: all .5s ease,z-index .5s linear;
 }
 
+.about-us-logos img {
+  margin: 40px 40px 0 0;
+  vertical-align: top;
+  
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
 .is-hidden  {
   display: none;
 }

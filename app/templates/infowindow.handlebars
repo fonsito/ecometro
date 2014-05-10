@@ -3,6 +3,9 @@
   <div class="cartodb-popup-content-wrapper">
     <div class="cartodb-popup-header">
       <h3>{{content.data.name}}</h3>
+      {{#if content.data.value}}
+        <p>{{content.data.value}}</p>
+      {{/if}}
     </div>
   </div>
   <div class="cartodb-popup-tip-container"></div>

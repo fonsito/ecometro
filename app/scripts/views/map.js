@@ -74,7 +74,7 @@ define([
       Backbone.Events.on('layer:floodzones', this.setFloodZonesLayer, this);
       Backbone.Events.on('layer:pluviometry', this.setPluviometryLayer, this);
 
-      //Backbone.Events.on('location');
+      Backbone.Events.on('location', this.setMarker, this);
     },
 
     createMap: function() {
@@ -229,13 +229,20 @@ define([
       }
     },
 
-    onClick: function(e) {
+    setMarker: function(latlng) {
+      var icon = L.icon({
+        iconUrl: '../images/marker.png',
+        iconSize: [40, 56]
+      });
+
       if (this.location) {
         this.map.removeLayer(this.location);
       }
-      this.location = L.marker(e.latlng);
+      this.location = L.marker(latlng, {
+        icon: icon
+      });
       this.location.addTo(this.map);
-      this.map.setView(e.latlng, this.options.zoom);
+      this.map.setView(latlng, this.options.zoom);
     }
 
   });

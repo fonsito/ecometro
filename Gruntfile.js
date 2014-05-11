@@ -89,8 +89,7 @@ module.exports = function(grunt) {
       all: [
         'Gruntfile.js',
         '<%= root.app %>/scripts/{,*/}{,*/}*.js',
-        '<%= root.test %>/specs/{,*/}{,*/}*.js',
-        '<%= root.test %>/runner.js'
+        '!<%= root.app %>/scripts/views/dashboard.js'
       ]
     },
 

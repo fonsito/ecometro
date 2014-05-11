@@ -2,6 +2,8 @@
 
 require.config({
 
+  enforceDefine: true,
+
   paths: {
     jquery: '../vendor/jquery/jquery',
     underscore: '../vendor/underscore/underscore',
@@ -12,7 +14,6 @@ require.config({
     moment: '../vendor/momentjs/moment',
     spin: '../vendor/spinjs/spin',
     cartodb: '../vendor/cartodb/dist/cartodb.nojquery',
-    backboneModal: '../vendor/Backbone.Modal/backbone.modal',
     highcharts: '../vendor/highcharts/highcharts',
     highchartsMore: '../vendor/highcharts/highcharts-more'
   },
@@ -36,9 +37,6 @@ require.config({
     },
     cartodb: {
       deps: ['jquery']
-    },
-    backboneModal: {
-      deps: ['backbone']
     },
     highchartsMore: {
       deps: ['highcharts']

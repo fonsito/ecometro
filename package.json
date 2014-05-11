@@ -1,11 +1,11 @@
 {
-  "name": "global-integrity",
-  "description": "Innovations for Transparency and Accountability",
+  "name": "ecometro",
+  "description": "A visualization tool",
   "version": "1.0.0",
-  "author": "David Inga <david.inga@simbiotica.es>",
+  "author": "Ecohack",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/simbiotica/global-integrity"
+    "url": "git@github.com:fonsito/ecometro.git"
   },
   "devDependencies": {
     "grunt": "^0.4.4",

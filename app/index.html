@@ -2,177 +2,110 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Global Integrity</title>
+    <title>Ecometro</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="apple-touch-icon" href="images/touch-icon.png">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,400italic' rel='stylesheet' type='text/css'>
     <!-- build:css(.tmp) styles/main.css -->
       <link rel="stylesheet" href="vendor/normalize-css/normalize.css">
       <link rel="stylesheet" href="vendor/cartodb/themes/css/cartodb.css">
+      <link rel="stylesheet" href="vendor/Backbone.Modal/backbone.modal.css">
       <link rel="stylesheet" href="../.tmp/styles/main.css">
     <!-- endbuild -->
   </head>
   <body>
-    <header class="layout-header" role="banner">
+
+    <header class="layout-header" role="banner" id="header">
       <div class="layout-header-inner">
         <div class="mod-brand">
-          <a href=""><img src="images/logo-global-integrity.png" alt="Logo of Global Integrity"></a>
+          <a href=""><img src="images/ecometro-logo.png" alt="Ecometro logo"></a>
         </div>
-        <nav class="mod-nav" id="mainNav">
-          <ul>
-            <li id="mapItemNav"><a href="#map">Map</a></li>
-            <li id="miscItemNav"><a href="#misc">Future production costs</a></li>
-            <li id="rankItemNav"><a href="#rank">Historic Investments</a></li>
-            <li id="constraintsItemNav"><a href="#constraints">Constraints</a></li>
-            <li id="aboutItemNav"><a href="#about">?</a></li>
+        <nav class="mod-categories is-unselectable" id="toolbarView">
+          <ul class="list-unstyled">
+            <li id="">
+              <a href="#climatology"><span class="category-color-climatology"></span>Climatology</a>
+              <ul class="mod-category-child list-unstyled">
+                <li>
+                  <label><input type="checkbox" data-layer="floodzones">Flood zones</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="pluviometry">Pluviometry</label>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#transportation"><span class="category-color-transportation"></span>Transports</a>
+              <ul class="mod-category-child list-unstyled">
+                <li>
+                  <label><input type="checkbox" data-layer="metro">Metro</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="buses">Buses</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="trains">Trains</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="airports">Airpots</label>
+                </li>
+              </ul>
+            </li>
+            <!-- <li>
+              <a href="#occupation"><span class="category-color-occupation"></span>Demographic</a>
+            </li> -->
+            <li>
+              <a href="#supplier"><span class="category-color-occupation"></span>Waste management</a>
+              <ul class="mod-category-child list-unstyled">
+                <li>
+                  <label><input type="checkbox" data-layer="greenpoints">Green points</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="landfills">Landfills</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="sewageplants">Sewage plants</label>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#contamination"><span class="category-color-supplier"></span>Contamination</a>
+              <ul class="mod-category-child list-unstyled">
+                <li>
+                  <label><input type="checkbox" data-layer="nitrogen">Nitrogen</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="phosphorus">Phosphorus</label>
+                </li>
+                <li>
+                  <label><input type="checkbox" data-layer="potasium">Potasium</label>
+                </li>
+              </ul>
+            </li>
           </ul>
         </nav>
       </div>
     </header>
 
-    <div class="layout-map is-hidden" id="mapView">
-      <nav class="mod-toolbar is-clearfix" id="mapToolbarView"></nav>
-      <div class="mod-map" id="mapVisView"></div>
-    </div>
-
-    <div class="layout-page is-clearfix is-hidden" id="miscView">
-      <nav class="mod-toolbar is-clearfix" id="miscToolbarView"></nav>
-      <article class="layout-page-content">
-        <div class="mod-chart" id="miscChartOneView"></div>
-      </article>
-    </div>
-
-    <div class="layout-page is-clearfix is-hidden" id="rankView">
-      <nav class="mod-toolbar is-clearfix" id="rankToolbarView">
-        <ul>
-          <li class="item-selector">
-            <button id="averageCost" data-name="average_cost" class="item-button active">Average cost</button>
-            <button id="enablerSpent" data-name="enabler_spent" class="item-button">Enabler spent</button>
-            <button id="staffCount" data-name="staff_count" class="item-button">Staff count</button>
-            <button id="time" data-name="time_months" class="item-button">Time</button>
-          </li>
-        </ul>
-      </nav>
-      <article class="layout-page-content">
-        <div class="mod-chart" id="rankChartView"></div>
-      </article>
-    </div>
-
-    <div class="layout-page is-clearfix is-hidden" id="constraintsView">
-      <nav class="mod-toolbar is-clearfix" id="constraintsToolbarView">
-        <ul>
-          <li class="item-selector" id="constraintSelector">
-            <span class="current">
-              <span class="item-text" id="currentConstraint">Historic constraints</span>
-              <span class="item-arrow"></span>
-            </span>
-            <ul class="item-selector-child">
-              <li><a href="#" data-name="Historic constraints">Historic constraints</a></li>
-              <li><a href="#" data-name="Future constraints">Future constraints</a></li>
-            </ul>
-          </li>
-
-          <li class="item-selector" id="cohortSelector">
-            <span class="current">
-              <span class="item-text" id="currentCohort">Consumer</span>
-              <span class="item-arrow"></span>
-            </span>
-            <ul class="item-selector-child">
-              <li><a href="#" data-name="Consumer">Consumer</a></li>
-              <li><a href="#" data-name="Producer">Producer</a></li>
-              <li><a href="#" data-name="Enabler">Enabler</a></li>
-              <li><a href="#" data-name="Consumer vs Enabler">Consumer vs Enabler</a></li>
-            </ul>
-          </li>
-
-          <li class="item-selector" id="productSelector">
-            <span class="current">
-              <span class="item-color is-hidden"></span>
-              <span class="item-text" id="currentProduct">All products</span>
-              <span class="item-arrow"></span>
-            </span>
-            <ul class="item-selector-child" id="productOptions"></ul>
-          </li>
-
-          <li class="item-fix" id="averageLegend">
-            <span class="item-color"></span>
-            <span class="item-text">Average</span>
-          </li>
-
-          <li class="item-fix consumer-vs-enabler-legend is-hidden">
-            <span class="item-color"></span>
-            <span class="item-text">Consumer</span>
-          </li>
-
-          <li class="item-fix consumer-vs-enabler-legend is-hidden">
-            <span class="item-color average-secondary"></span>
-            <span class="item-text">Enabler</span>
-          </li>
-
-        </ul>
-      </nav>
-      <article class="layout-page-content">
-        <div class="mod-chart" id="constraintsChartView"></div>
-        <div class="mod-chart">
-          <dl>
-            <div class="is-clearfix">
-              <dt>Actionability</dt>
-              <dd>Difficulty in translating published data into real-life policy or practical insights/actions.</dd>
-            </div>
-            <div class="is-clearfix">
-              <dt>Budget</dt>
-              <dd>Did producers of this data find it difficult to deliver the research product on time on the budget that you allocated for this product?</dd>
-            </div>
-            <div class="is-clearfix">
-              <dt>Human capital</dt>
-              <dd>How difficult was it to get skilled personnel for research this data?</dd>
-            </div>
-            <div class="is-clearfix">
-              <dt>Lack of Demand</dt>
-              <dd>Lack of demand (or unknown or uncertain demand) for a certain type of governance data or data for a particular country.</dd>
-            </div>
-            <div class="is-clearfix">
-              <dt>Interopeability</dt>
-              <dd>The data was of such a different type and format that it was difficult to use it effectively alongside other data or information.</dd>
-            </div>
-            <div class="is-clearfix">
-              <dt>Mandate</dt>
-              <dd>Did producers of this product found it difficult to research because of existing regulations or censorship?</dd>
-            </div>
-            <div class="is-clearfix">
-              <dt>Regularity of coverage</dt>
-              <dd>Was this data at least for some of the countries available for limited number of years in the past? Or may be most recent data was not available? Insufficient and sporadically produced data? Certain countries have never been covered for this governance data?</dd>
-            </div>
-            <div class="is-clearfix">
-              <dt>Relevance</dt>
-              <dd>Produced data not of significance to the requirements of the users.</dd>
-            </div>
-            <div class="is-clearfix">
-              <dt>Technical capacity</dt>
-              <dd>Did you find the data producers involved in this project adequately knowledgeable about research methods, data analysis, application of special software to your satisfaction?</dd>
-            </div>
-            <div class="is-clearfix">
-              <dt>Time</dt>
-              <dd>Was the project on schedule? Did time become a major impediment to publishing high-quality, impactful research or otherwise limit your ambitions?</dd>
-            </div>
-          </dl>
-        </div>
-      </article>
-    </div>
-
-    <div class="layout-page is-hidden is-clearfix" id="aboutView">
-      <div class="layout-page-content">
-        <div class="mod-chart">
-          <h2>About/FAQ</h2>
-          <p>The data, maps, and charts contained on this minisite were gathered and generated in preparation for a <a href="https://www.globalintegrity.org/posts/launching-a-discussion-about-a-governance-data-alliance/">two­ day exploratory meeting</a> around possibilities for a Governance Data Alliance on April 15­16 2014, organized by <a href="http://mcc.gov/">Global Integrity</a> and the <a href="http://mcc.gov/">Millennium Challenge Corporation</a>. The source data that comprise the materials on this minisite were gathered from participants attending the meeting. While certainly not a representative sample, these data provide an interesting set of insights into historic, current, and future possibilities and constraints vis a vis improved coordination in the production and use of “governance” data, generously defined. For a full description of the gathering please review <a href="https://www.globalintegrity.org/posts/launching-a-discussion-about-a-governance-data-alliance/">this blog post</a>.</p>
-
-          <p>The Map feature of this minisite offers a quick glance at the historic and anticipated future coverage gaps and redundancies in the production of various governance data. The Future Production Costs page provides a glimpse into anticipated production cost increases on a per product and aggregate basis. Historic Investments offers insights into the rough amounts various funders and donors have invested into a range of governance data research products. Constraints offers an interesting comparison of the respective challenges that governance data producers, users, and enablers perceive in the context of their current and future work.</p>
-
-          <p>For more information please contact Global Integrity via info [at] globalintegrity [dot] org or +1­202­449­4100.</p>
+    <section class="layout-sidebar" id="dashboardView">
+      <div class="select-project-container">
+        <div class="sidebar-wrapper">
+          <label>Select a project</label>
+          <select id="selectProject"></select>
         </div>
       </div>
+
+      <div class="sidebar-wrapper">
+        <div id="projectDetails" class="project-details"></div>
+        <div id="pentagon" class="mod-pentagon"></div>
+        <footer>
+          <button id="aboutUs" class="btn btn-primary">About the project</button>
+        </footer>
+      </div>
+    </section>
+
+    <div class="layout-map" id="mapView">
     </div>
 
     <div id="spinView" class="mod-spin"></div>

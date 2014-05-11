@@ -1,11 +1,13 @@
-silex-cartodb
-=============
+Map layering extension for "Ecómetro"
+=====================================
 
 ## Requeriments
 
-* PHP 5.3+
 * Node 0.10+
 * Ruby 1.9.3+
+* bower 
+* grunt
+* npm (node package manager)
 
 Install globally dependencies:
 
@@ -14,15 +16,11 @@ Install globally dependencies:
 
 ## To install
 
-    curl -sS https://getcomposer.org/installer | php
-    php composer.phar install
     bundle install
     npm install
     bower install
 
 ## To run
-
-**First duplicate and rename `web/.htaccess.dist` to `web/.htaccess`.**
 
 On development
     
@@ -31,8 +29,4 @@ On development
 
 On production
     
-    grunt build    
-
-# Deploy
-
-    bundle exec cap staging deploy
+    grunt build
